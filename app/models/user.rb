@@ -5,11 +5,12 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255},
           format: { with: VALID_EMAIL_REGEX }, 
           uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
+
+  validates :password, length: { minimum: 6 }, allow_blank: true
+  has_secure_password
 
   before_save { self.email = email.downcase }
 
-  has_secure_password
 
   attr_accessor :remember_token
 
